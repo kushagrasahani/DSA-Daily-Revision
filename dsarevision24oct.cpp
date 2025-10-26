@@ -61,3 +61,36 @@
         }
         return maxi;
     }
+
+// Q4 - Longest Mountain in Array
+// first analyse that there could be multiple peaks so binary search is not a valid option here, Peaks can be in the range [1,n-2] , loop in this range
+// and find all the possible peaks, at each finding , find the range of the valley , s=i -> 1 & i=i-> n-2 , then i++;
+// keep count = 1 for each peak and as you keep finding the valley , inc count;
+
+// PATTERN - Expanding the range based on possible answers
+
+int longestMountain(vector<int>& arr) {
+        int i = 1;
+        int j = arr.size() - 2;
+        int ans = 0;
+        while (i <= j) {
+            if (arr[i] > arr[i - 1] && arr[i] > arr[i + 1]) {
+                int count = 1;
+                int s = i;
+                while (s > 0 && arr[s] > arr[s - 1]) {
+                    s--;
+                    count++;
+                }
+                while (i < arr.size() - 1 && arr[i] > arr[i + 1]) {
+                    count++;
+                    i++;
+                }
+                ans = max(ans, count);
+                i++;
+            } else
+                i++;
+        }
+        return ans;
+}
+
+
