@@ -43,4 +43,33 @@ int longestConsecutive(vector<int>& nums) {
         //     maxi = max(maxi, len);
         // }
         return maxi;
+
     }
+
+// 1 2 3 4 5
+    // 4
+    // 3 2 1
+    // Q TWO SUM
+    //  Basically what i did wrong was that i stored the all the elements in map with their corresponding 
+    // index, then again iterate the array and find whether the map has target - curr element , if yes 
+    // then i return the pair , but this would not work if target - nums[i] = nums[i] because in that case
+    // i would have the same index again and again, so in this we could add mp.find(req)!=mp.end && mp[req]!= i
+    // then we would have distinct elements
+    // ANOTHER OPTIMIZED SOLUTION 
+    // using a single pass , at any index , there must be a case where tagret - curr would have already appeared
+    // so if we find that then return otherwise keep on adding the current element in map with i;
+
+   vector<int> twoSum(vector<int> &nums, int k)
+{
+    unordered_map<int, int> mp;
+    for (int i = 0; i < nums.size(); i++)
+    {
+        int tar = k - nums[i];
+        if (mp.find(tar) != mp.end())
+        {
+            return {i, mp[tar]};
+        }
+        mp[nums[i]] = i;
+    }
+    return {-1, -1};
+}
