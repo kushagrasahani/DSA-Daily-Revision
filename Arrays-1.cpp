@@ -73,3 +73,34 @@ int longestConsecutive(vector<int>& nums) {
     }
     return {-1, -1};
 }
+
+// Q3 Contigous Subarray Sum
+// APPROACH 1 -
+// USING PREF ARRAY AND THEN LOOPING THROUGH THE ARRAY AND SUBTRACTING THE PREF UNTIL LEN >=
+// 2 AT EACH INDEX,O(N ^ 2)
+// OPTIMIZED
+//IF AT ANY INDEX WE FIND A PREF % K WHICH APPEARED BEFORE THEN THAT MEANS THERE IS A SUBARRAY WHICH HAS SUM % K == 0,
+//SO USE 1 LOOP, FIND PREF, THEN FIND MOD, IF MOD == 0 RETURN TRUE, IF MOD IS IN MAP THEN FIND 
+//THE LEN, IF LEN >= 2 RETURN TRUE, IF MOD NOT IN MAP, THEN ADD
+
+bool checkSubarraySum(vector<int> &nums, int k)
+{
+    int n = nums.size();
+    // vector<int> pref(n, 0);
+    unordered_map<int, int> mp;
+    int pref = 0;
+    for (int i = 0; i < n; i++){
+        pref += nums[i];
+        int mod = pref % k;
+        if (mod == 0 && i > 0)
+            return true;
+        if (mp.find(mod) != mp.end())
+        {
+            int len = i - mp[mod];
+            if (len >= 2)
+                return true;
+        }
+        else
+            mp[mod] = i;
+    }
+}
