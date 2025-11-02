@@ -104,3 +104,18 @@ bool checkSubarraySum(vector<int> &nums, int k)
             mp[mod] = i;
     }
 }
+
+Q - FIRST MISSING POSITIVE
+    APRROACH -1 -> USING MAP
+        // unordered_map<int,bool>mp;
+        // for(int i=0; i<nums.size();i++){
+        //     mp[nums[i]] = true;
+        // }
+        // int n = nums.size();
+        // int i=1;
+        // while(i<=n){
+        //     if(mp.find(i)==mp.end())return i;
+        //     i++;
+        // }
+        // return -1;
+
