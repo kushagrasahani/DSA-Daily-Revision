@@ -105,6 +105,22 @@ bool checkSubarraySum(vector<int> &nums, int k)
     }
 }
 
+// Q TRIANGLUAR SUM OF AN ARRAY
+// TO EXPLORE THE PASCAL TRIANGLE APPROACH
+// TC - O(N^2)
+// SC - O(1);
+int triangularSum(vector<int>& nums) {
+        int n = nums.size();
+        if(n==1)return nums[0];
+        int k = nums.size()-1;
+        while(k!=0){
+            for(int i=0; i<n-1; i++){
+              nums[i] = (nums[i]+nums[i+1])%10;
+            }
+            k--;
+        }
+        return nums[0];
+}
 Q - FIRST MISSING POSITIVE
     APRROACH -1 -> USING MAP
         // unordered_map<int,bool>mp;
@@ -118,4 +134,5 @@ Q - FIRST MISSING POSITIVE
         //     i++;
         // }
         // return -1;
+
 
