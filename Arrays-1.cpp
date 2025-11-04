@@ -122,6 +122,7 @@ int triangularSum(vector<int>& nums) {
         return nums[0];
 }
 Q - FIRST MISSING POSITIVE
+       Still pending
     APRROACH -1 -> USING MAP
         // unordered_map<int,bool>mp;
         // for(int i=0; i<nums.size();i++){
@@ -134,5 +135,6 @@ Q - FIRST MISSING POSITIVE
         //     i++;
         // }
         // return -1;
+
 
 
