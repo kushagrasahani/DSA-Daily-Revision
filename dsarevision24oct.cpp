@@ -93,4 +93,68 @@ int longestMountain(vector<int>& arr) {
         return ans;
 }
 
+// PATTERN - PREFIX SUFFIX PATTERN
+// If each element’s final contribution depends on both what came before and what comes after,
+//  you can almost always apply prefix–suffix accumulation.
+//  maintain a pref and suff = 1
+//  for i=0-N
+//  pref = pref*nums[i];
+//  suff = suff*nums[n-i-1];
+//  if(pref == 0 || suff == 0)pref = 1;suff = 1;
+//  maxi = max(maxi, max(pref, suff));
+//  return maxi
+//  //MY CODE
+//  keep multiplying if not 0
+//  if prod < 0
+//  r = i+1
+//  find the produc after this until u find a 0
+//  if the newprod < 0 , maxi = prod * new prod
+//  else maxi = newprod
+//  if newpord == 0 break
+//  i= r;
+//  prod = 1 // resst it to find the prod after the 0
+//  same idea , just not keeping oref and suff
+ int maxProduct(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 1)
+            return nums[0];
+
+        int maxi = INT_MIN;
+        int prod = 1;
+        int zeroc = 0;
+        for (int i = 0; i < n; i++) {
+            if (nums[i] == 0) {
+                zeroc++;
+                maxi = max(maxi, 0);
+                prod = 1; // reset
+                continue;
+            }
+            prod *= nums[i];
+            maxi = max(maxi, prod);
+            if (prod < 0) {
+                int r = i + 1;
+                int newprod = 1;
+                while (r < n) {
+
+                    if (nums[r] == 0){
+                        zeroc++;
+                     break; // break chain at zero
+                    }
+                        
+                    newprod *= nums[r];
+                    if (newprod < 0) { // found another negative
+                        maxi = max(maxi, prod * newprod);
+                    } else
+                        maxi = max(maxi, newprod);
+                    r++;
+                }
+                i = r; // skip processed segment
+                prod = 1;
+            }
+        }
+        if(maxi < 0 && zeroc > 0)return 0;
+        return maxi;
+    }
+
+
 
