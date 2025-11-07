@@ -144,6 +144,23 @@ int findDuplicate(vector<int>& nums) {
         }
 return -1;
 
+Q Search in a rotated sorted array
+int search(vector<int>& nums, int target) {
+        if (nums[0] < nums[nums.size() - 1]) {
+            return bs(nums, target, 0, nums.size() - 1);
+        }
+        int i = 1;
+        for (int i = 1; i < nums.size() - 1; i++) {
+            if (nums[i] < nums[i - 1] && nums[i] < nums[i + 1]) {
+                int ans1 = bs(nums, target, 0, i);
+                int ans2 = bs(nums, target, i + 1, nums.size() - 1);
+                if (ans1 != -1)
+                    return ans1;
+                return ans2;
+            }
+        }
+    }
+
 
 
 
